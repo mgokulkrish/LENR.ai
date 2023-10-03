@@ -10,3 +10,5 @@ General Use-case finding.
 3. Unique changes to Recommendation Systems: So it is able to find new collaborations, applications or suggest possible intersection with this domain.
 4. Multi-Functionality  of LLMs as chatbot and recommendation systems.
 5. Extrapolation pattern in data using LLMs. [paper](https://arxiv.org/pdf/2210.01848.pdf), or possibility of pattern recognition in this domain ?
+6. Document Classification - Already exists in Unsupervised Learning Domain at [LENR Dashboard](https://lenrdashboard.com/#). Can we use LLM for Topic Classification and Sub-classification which gives better accuracy? [Check this video](https://www.youtube.com/watch?v=g9dSt1cCW5k)
+7. Translations - A lot of research requires collaboration with researchers from all across the globe. In this scenario, is there a requirement to translate research documents using LLMs from one language to another?
