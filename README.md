@@ -1,4 +1,4 @@
-#  AI Project on LERN.
+#  AI Project on LENR.
 
 Predictive Analysis project by
  - Gokul
