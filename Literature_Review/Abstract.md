@@ -21,6 +21,10 @@ Analysis and Feasibility of Large Language Models to serve as a conversational a
 - Findings on Multilingual Machine Translation with Large Language Models: [paper](https://arxiv.org/abs/2304.04675) 
 - Exploring Human-like Translation strategies using LLMs: [paper](https://arxiv.org/abs/2305.04118) 
 
+### 1. Data Preparation for fine_tuning.
+- Efficient Fine-Tuning with LoRA: A Guide to Optimal Parameter Selection for Large Language Models [article](https://www.databricks.com/blog/efficient-fine-tuning-lora-guide-llms)
+- Details on Alpaca fine_tuning [article](https://github.com/tatsu-lab/stanford_alpaca)
+- How to train your own ChatGPT Alpaca style, part one [article](https://fastml.com/how-to-train-your-own-chatgpt-alpaca-style-part-one/)
 
 
 ## Execution Plan:
