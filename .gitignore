@@ -1,2 +1,3 @@
 src/chroma_db
+src/faiss_db
 src/.ipynb_checkpoints
