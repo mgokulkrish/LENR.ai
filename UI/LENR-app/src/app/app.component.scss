@@ -1,0 +1,61 @@
+.body-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin: 2em;
+    padding: 1em;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.solution {
+    display: flex;
+    gap: 0.5em;
+    padding: 0 0.5em;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.prompt {
+    display: flex;
+    gap: 0.5em;
+    padding: 0 0.5em;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.prompt-input {
+    width: 50vw;
+    min-height: 5vh !important;
+}
+
+.btn-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submit-btn {
+    width: 2.5em;
+    height: 2.5em;
+}
+  
+.result {
+    min-height: 50vh;
+    width: 50vw;
+    border-radius: 5px;
+}
+  
+.submit-section {
+    display: flex;
+    flex-direction: row-reverse;
+}
+  
+.button-content {
+    display: flex;
+    gap: 0.5em;
+}
