@@ -10,12 +10,19 @@ chunk_overlap = 20
 # Chunking the data
 # Chunking.
 def get_dataset():
-    with open('data.pkl', 'rb') as file:
+    with open('abstracts.pkl', 'rb') as file:
         docs = pickle.load(file)
     return docs
 
+def get_titles():
+    with open('titles.pkl', 'rb') as file:
+        titles = pickle.load(file)
+    return titles
+
 def get_chunks(size, overlap):
     docs = get_dataset()
+    titles = get_titles()
+
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=size,
         chunk_overlap=overlap,
@@ -23,8 +30,10 @@ def get_chunks(size, overlap):
     )
 
     chunks = []
-    for text in docs:
+    for id, text in enumerate(docs):
         subset = text_splitter.create_documents([text])
+        for chunk in subset:
+            chunk.metadata={"doc_id": id+1, "title": titles[id]}
         chunks += subset
 
     return chunks
