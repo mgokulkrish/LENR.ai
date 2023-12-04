@@ -27,8 +27,9 @@ def text_extraction(element):
 def get_titles(start_doc, end_doc):
   titles = []
   for i in range(start_doc, end_doc + 1):
+    print(i)
     max_score = -1
-    pages = list(enumerate(extract_pages("../dataset/doc" + str(i) + ".pdf")))
+    pages = list(enumerate(extract_pages("../dataset_big/" + str(i) + ".pdf")))
     front_page = pages[0][1]
     for element in front_page:
       if isinstance(element, LTTextContainer):
@@ -112,7 +113,8 @@ def get_abstract_elements_range(pageElements):
 def get_abstracts(start_doc, end_doc):
   abstracts = []
   for i in range(start_doc, end_doc + 1):
-    pages = list(enumerate(extract_pages('../dataset/doc' + str(i) + '.pdf')))
+    print(i)
+    pages = list(enumerate(extract_pages('../dataset_big/' + str(i) + '.pdf')))
     frontPage = pages[0][1]
     elements = list(enumerate(frontPage))
     abstractRange = get_abstract_elements_range(elements)
@@ -126,19 +128,21 @@ def get_abstracts(start_doc, end_doc):
   return abstracts
 
 print("getting titles....")
-titles = get_titles(1, 32)
+titles = get_titles(1, 405)
 # Manual pre-processing
 # removing the location, prof name from document 14 and 15
-titles[14] = titles[14][:105]
-titles[15] = titles[15][:119]
 
 print("getting abstracts....")
-abstracts = get_abstracts(1,32)
+abstracts = get_abstracts(1, 405)
 
 data = titles + abstracts
 print("pickling....")
 # Pickle the list
 with open('data.pkl', 'wb') as file:
     pickle.dump(data, file)
-print(data)
 
+with open('titles.pkl', 'wb') as file:
+    pickle.dump(titles, file)
+
+with open('abstracts.pkl', 'wb') as file:
+    pickle.dump(abstracts, file)
