@@ -3,7 +3,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 import pickle
 
-db = "faiss"
+db = "chroma"
 chunk_size = 512
 chunk_overlap = 20
 
@@ -46,7 +46,7 @@ print(f"number of chunks {len(chunks)}")
 def save_vector_db(db):
     if db == "chroma":
         print("creating chroma db ....")
-        persist_directory = 'chroma_db/'
+        persist_directory = '../chroma_db/'
         embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         vectordb = Chroma.from_documents(
             documents=chunks,
@@ -55,7 +55,7 @@ def save_vector_db(db):
         )
     elif db == "faiss":
         print("creating FAISS db ....")
-        persist_directory = 'faiss_db/'
+        persist_directory = '../faiss_db/'
         embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         vectordb = FAISS.from_documents(
             documents=chunks,
