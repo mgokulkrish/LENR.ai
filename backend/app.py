@@ -42,7 +42,7 @@ def generate_prompt():
 # mock api route
 @app.route('/documents', methods=['GET'])
 def get_docs():
-  question = "What factors controls the ability of palladium cathods to attain high loading levels?"
+  question = "What factors control the ability of palladium cathodes to attain high loading levels?"
   document_data = find_documents(question)
   abstracts = get_abstracts(document_data)
   
