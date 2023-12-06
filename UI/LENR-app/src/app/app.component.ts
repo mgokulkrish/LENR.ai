@@ -15,11 +15,9 @@ import { UtilsService } from '../services/utils.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  public title: string = 'LENR.ai';
-  public streamText: string = '';
-  public promptText: string = '';
-
-  public stepText = ""
+  public title: string = "LENR.ai";
+  public streamText: string = "";
+  public promptText: string = "";
 
   public isPristine: boolean = false;
   public isFetchingDocs: boolean = false;
@@ -50,8 +48,8 @@ export class AppComponent {
         return data.prompt;
       })).subscribe({
         next: (prepared_prompt: string) => {
-          // this.getStream(prepared_prompt);
-          this.streamText = this.utils.processStreamData(prepared_prompt);
+          this.getStream(prepared_prompt);
+          // this.streamText = this.utils.processStreamData(prepared_prompt);
 
         }, error: (err) => {
           console.error("Error from DB call", err);
@@ -65,42 +63,46 @@ export class AppComponent {
   private async getStream(prepared_prompt: string) {
     this.isLoading = true;
 
-    let response = await fetch(APP_CONSTANTS.cppServer + "/completion", {
-      method: 'POST',
-      body: JSON.stringify({
-        prompt: prepared_prompt,
-        n_predict: 1024,
-        stream: true,
+    try {
+      let response = await fetch(APP_CONSTANTS.cppServer + "/completion", {
+        method: 'POST',
+        body: JSON.stringify({
+          prompt: prepared_prompt,
+          n_predict: 1024,
+          stream: true,
+        })
       })
-    });
 
-    if (response.status !== 200) {
+      if (response.status !== 200) {
+        throw new Error('Fetch request failed',);
+      }
+
+      const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+
+      while (true) {
+        const data = await reader?.read();
+
+        let lastLine = data?.value?.split(/\r?\n/);
+        let last_array = lastLine?.filter(e => e != '');
+
+        let stop = false;
+        last_array?.forEach((str) => {
+          this.streamText += JSON.parse(str).content;
+          if (JSON.parse(str)?.stop) {
+            stop = true;
+          }
+        });
+
+        if (stop) {
+          this.isLoading = false;
+          break;
+        }
+      }
+
+    } catch (error) {
       this.isLoading = false;
       this.hasError = true;
-      this.errorMessage = "Error is fetching the LLM data";
-      return;
-    }
-
-    const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
-
-    while (true) {
-      const data = await reader?.read();
-
-      let lastLine = data?.value?.split(/\r?\n/);
-      let last_array = lastLine?.filter(e => e != '');
-
-      let stop = false;
-      last_array?.forEach((str) => {
-        this.streamText += JSON.parse(str).content;
-        if (JSON.parse(str)?.stop) {
-          stop = true;
-        }
-      });
-
-      if (stop) {
-        this.isLoading = false;
-        break;
-      }
+      this.errorMessage = "Error in fetching the LLM data";
     }
   }
 }
