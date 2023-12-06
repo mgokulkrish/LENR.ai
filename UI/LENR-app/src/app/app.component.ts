@@ -87,7 +87,8 @@ export class AppComponent {
 
         let stop = false;
         last_array?.forEach((str) => {
-          this.streamText += JSON.parse(str).content;
+          this.isLoading = false;
+          this.streamText += this.utils.processStreamData(JSON.parse(str).content);
           if (JSON.parse(str)?.stop) {
             stop = true;
           }

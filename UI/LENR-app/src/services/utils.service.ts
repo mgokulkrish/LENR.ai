@@ -7,9 +7,9 @@ export class UtilsService {
     constructor() { }
 
     public processStreamData(stream: string) {
+        if (!stream) return stream;
+
         const str = stream.replace(/(?:\r\n|\r|\n)/g, '</br>');
-        const fixedData = str.trim();
-        console.log(fixedData);
-        return fixedData;
+        return str;
     }
 }
