@@ -1,28 +1,48 @@
-<div [attr.data-bs-theme]="theme" class="body-content">
+<div class="body-content">
   <span class="header">
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title display-4">{{ title }}</h1>
   </span>
 
   <div class="solution">
-    <div class="result">
-      <p class="result-box" text-align="justify">{{ streamText }}</p>
+    <div class="initialize content-box" *ngIf="isPristine">
+      <span class="display-5">How can I help you today?</span>
     </div>
+
+    <div class="error content-box" *ngIf="hasError">
+      <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{errorMessage}}</span>
+      </div>
+    </div>
+
+    <div class="loader content-box" *ngIf="isInTranstion">
+      <div class="load-content" *ngIf="isFetchingDocs">
+        <span class="display-6 text-warning">Fetching LENR Documents...</span>
+        <span class="spinner-border text-warning" role="status"></span>
+      </div>
+
+      <div class="load-content" *ngIf="isLoading">
+        <span class="display-6 text-warning">Generating Response...</span>
+        <span class="spinner-border text-warning" role="status"></span>
+      </div>
+    </div>
+
+    <div class="result content-box" *ngIf="hasResult">
+      <p class="result-box" text-align="justify" [innerHTML]="streamText"></p>
+    </div>
+
   </div>
 
   <div class="prompt">
-    <textarea class="form-control prompt-input" placeholder="Enter prompt"
-    [disabled]="isFetching" [(ngModel)]="promptText" rows="1"
-    ></textarea>
+    <textarea class="form-control prompt-input" placeholder="Enter prompt" [disabled]="isInTranstion"
+      [(ngModel)]="promptText" rows="1" (keydown.enter)="getAnswer()"></textarea>
 
     <span class="btn-span">
-      <button class="btn btn-secondary submit-btn" type="button" (click)="getAnswer()">
-        <span *ngIf="!isFetching" class="button-content">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
-            <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            </path>
-          </svg>
+      <button class="btn btn-secondary submit-btn" type="button" (click)="getAnswer()" [disabled]="isInTranstion">
+        <span *ngIf="!isInTranstion" class="button-content">
+          <i class="fa-solid fa-arrow-up-long"></i>
         </span>
-        <span *ngIf="isFetching" class="button-content">
+        <span *ngIf="isInTranstion" class="button-content">
           <i class="fa-solid fa-spinner fa-spin-pulse"></i>
         </span>
       </button>

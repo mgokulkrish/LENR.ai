@@ -1,24 +1,54 @@
 .body-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
-    margin: 2em;
-    padding: 1em;
 }
 
 .header {
     display: flex;
-    justify-content: center;
     align-items: center;
+    padding: 1em;
+    background: var(--bs-body-color);
 }
 
 .solution {
     display: flex;
     gap: 0.5em;
-    padding: 0 0.5em;
+    padding: 0.5em 0.5em;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.content-box {
+    min-height: 70vh;
+    width: 50vw;
+    border-radius: 5px;
+}
+
+.loader, .error, .initialize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.load-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-weight: 300;
+}
+.result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 1em;
+}
+
+.result-box {
+    overflow: auto;
+    padding: 1em;
 }
 
 .prompt {
@@ -45,12 +75,6 @@
     height: 2.5em;
 }
   
-.result {
-    min-height: 50vh;
-    width: 50vw;
-    border-radius: 5px;
-}
-  
 .submit-section {
     display: flex;
     flex-direction: row-reverse;
@@ -58,5 +82,15 @@
   
 .button-content {
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-danger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 0.5em;
+    background: var(--bs-danger-text-emphasis);
+    color: var(--bs-danger-border-subtle);
 }
