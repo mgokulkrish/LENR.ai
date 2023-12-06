@@ -38,6 +38,7 @@ export class AppComponent {
   }
 
   getAnswer(): void {
+    this.streamText = "";
     this.isPristine = false;
     this.hasError = false;
     this.isFetchingDocs = true;
