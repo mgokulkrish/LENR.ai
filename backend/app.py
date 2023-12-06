@@ -39,6 +39,7 @@ def generate_prompt():
   return jsonify({'prompt' : prompt})
   
   
+# mock api route
 @app.route('/documents', methods=['GET'])
 def get_docs():
   question = "What factors controls the ability of palladium cathods to attain high loading levels?"
@@ -47,6 +48,7 @@ def get_docs():
   
   prompt = create_prompt(question, abstracts)
   return jsonify({'prompt' : prompt})
+
 
 # @app.route("/data", methods=['POST'])
 # def data():
@@ -109,7 +111,11 @@ def get_abstracts(document_data):
   
   candidate_abstracts = ""
   for id in candidates:
-    candidate_abstracts += f"\n doc{id}.pdf: {abstracts[id - 1][0:300]};"
+    processed_abstract = abstracts[id - 1][0:300]
+    processed_abstract = processed_abstract.replace('\n','')
+    processed_abstract = processed_abstract.replace('\t','')
+    processed_abstract = processed_abstract.strip()
+    candidate_abstracts += f"\n\n doc{id}.pdf: {processed_abstract};"
   
   return candidate_abstracts
 

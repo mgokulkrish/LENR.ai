@@ -35,7 +35,7 @@
 
   <div class="prompt">
     <textarea class="form-control prompt-input" placeholder="Enter prompt" [disabled]="isInTranstion"
-      [(ngModel)]="promptText" rows="1"></textarea>
+      [(ngModel)]="promptText" rows="1" (keydown.enter)="getAnswer()"></textarea>
 
     <span class="btn-span">
       <button class="btn btn-secondary submit-btn" type="button" (click)="getAnswer()" [disabled]="isInTranstion">
