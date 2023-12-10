@@ -1,6 +1,18 @@
 <div class="body-content">
   <span class="header">
-    <h1 class="title display-4">{{ title }}</h1>
+    <span class="title display-4">{{ title }}</span>
+    <span class="mode-dropdown">
+      <span class="lead">Current Mode: </span>
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn btn-outline-secondary" id="llm-mode" ngbDropdownToggle>
+          {{selectedMode}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="llm-mode" class="dropdown-menu dropdown-menu-dark">
+          <button ngbDropdownItem *ngFor="let mode of llmModes | keyvalue"
+            (click)="changeMode(mode.key)">{{mode.value}}</button>
+        </div>
+      </div>
+    </span>
   </span>
 
   <div class="solution">
@@ -28,7 +40,7 @@
     </div>
 
     <div class="result content-box" *ngIf="hasResult">
-      <p class="result-box" text-align="justify" [innerHTML]="streamText"></p>
+      <p class="result-box" [innerHTML]="streamText"></p>
     </div>
 
   </div>
