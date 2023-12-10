@@ -28,6 +28,10 @@
     min-width: 15em;
 }
 
+.dropdown-item:active {
+    background: var(--bs-body-color);
+}
+
 .solution {
     display: flex;
     gap: 0.5em;
@@ -43,7 +47,9 @@
     border-radius: 5px;
 }
 
-.loader, .error, .initialize {
+.loader,
+.error,
+.initialize {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,17 +62,67 @@
     gap: 0.5em;
     font-weight: 300;
 }
+
 .result {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: auto;
     padding: 1em;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.result-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .result-box {
     overflow: auto;
     padding: 1em;
+    text-align: justify;
+    text-justify: inter-word;
+    background: var(--bs-body-color);
+    border-radius: 0.6em;
+    width: 100%;
+}
+
+.source-docs {
+    background: var(--bs-body-color);
+    border-radius: 0.6em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+}
+
+.source-docs-header {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.document-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-left: 0;
+}
+
+.document-details {
+    display: flex;
+    gap: 0.4em;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+
+.doc-title {
     text-align: justify;
     text-justify: inter-word;
 }
@@ -90,16 +146,17 @@
     align-items: center;
     justify-content: center;
 }
+
 .submit-btn {
     width: 2.5em;
     height: 2.5em;
 }
-  
+
 .submit-section {
     display: flex;
     flex-direction: row-reverse;
 }
-  
+
 .button-content {
     display: flex;
     align-items: center;

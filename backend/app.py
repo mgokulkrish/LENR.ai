@@ -42,7 +42,10 @@ def generate_qa_prompt():
   question = req['question']
   document_data = find_documents(question)
   prompt = create_qa_prompt(question, document_data)
-  return jsonify({'prompt' : prompt})
+  return jsonify({
+    'prompt' : prompt,
+    'context': document_data
+  })
 
 
 # mock api route
