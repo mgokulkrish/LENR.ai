@@ -6,8 +6,26 @@
 .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 1em;
     background: var(--bs-body-color);
+}
+
+.mode-dropdown {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 15em;
+}
+
+.dropdown-menu {
+    min-width: 15em;
 }
 
 .solution {
@@ -49,6 +67,8 @@
 .result-box {
     overflow: auto;
     padding: 1em;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .prompt {
