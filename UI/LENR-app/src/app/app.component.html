@@ -40,7 +40,23 @@
     </div>
 
     <div class="result content-box" *ngIf="hasResult">
+      <span class="result-title">
+        <span class="lead">AI Response</span>
+      </span>
       <p class="result-box" [innerHTML]="streamText"></p>
+      <div class="source-docs" *ngIf="isInQAMode">
+        <span class="source-docs-header">
+          <span class="lead">Source Documents</span>
+          <span class="badge bg-info text-dark">{{sourceDocs.length}}</span>
+        </span>
+        <ul class="document-list">
+          <li class="document-details" *ngFor="let doc of sourceDocs" [title]="doc.title">
+            <span class="badge bg-secondary">Doc{{doc?.doc_id}}</span>
+            <span class="doc-title">
+              {{ (doc.title.length > 70) ? (doc.title | slice:0:70) : (doc.title) }} ...</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
   </div>

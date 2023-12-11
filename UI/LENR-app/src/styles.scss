@@ -15,10 +15,10 @@ input, textarea {
 }
 
 textarea::placeholder {
-    color: var(--bs-gray-400) !important;
+    color: var(--bs-gray-500) !important;
     opacity: 1 !important; /* Firefox */
 }
   
 textarea::-ms-input-placeholder { /* Edge 12 -18 */
-    color: var(--bs-gray-400) !important;
+    color: var(--bs-gray-500) !important;
   }

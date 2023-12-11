@@ -42,7 +42,10 @@ def generate_qa_prompt():
   question = req['question']
   document_data = find_documents(question)
   prompt = create_qa_prompt(question, document_data)
-  return jsonify({'prompt' : prompt})
+  return jsonify({
+    'prompt' : prompt,
+    'context': document_data
+  })
 
 
 # mock api route
@@ -93,7 +96,7 @@ def find_documents(question):
   dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', persist_directory))
   embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
   vector_db = Chroma(persist_directory=dir, embedding_function=embeddings)
-  result_docs = vector_db.similarity_search(question, k=10)
+  result_docs = vector_db.similarity_search(question, k=5)
 
   docs = []
   doc_count = 0
@@ -129,7 +132,7 @@ def get_abstracts(document_data):
   for id in candidates:
     processed_abstract = abstracts[id - 1][0:300]
     processed_abstract = process_text(processed_abstract)
-    candidate_abstracts += f"\n\n doc{id}.pdf: {processed_abstract};"
+    candidate_abstracts += f"\n\n Doc{id}.pdf: {processed_abstract};"
   
   return candidate_abstracts
 

@@ -27,11 +27,13 @@ export class AppComponent {
   public promptText: string = "";
   public llmModes: any = LLM_MODES;
   public selectedMode: string = LLM_MODES.recommendation;
+  public sourceDocs: any[] = [];
 
   public isPristine: boolean = false;
   public isFetchingDocs: boolean = false;
   public isLoading: boolean = false;
   public hasError: boolean = false;
+  public hasQAResult: boolean = false;
   public errorMessage: string = "";
 
   constructor(private db: DBService, private utils: UtilsService) {
@@ -46,10 +48,15 @@ export class AppComponent {
     return !this.isInTranstion && !this.isPristine && !this.hasError;
   }
 
+  get isInQAMode(): boolean {
+    return this.selectedMode === this.llmModes.qa && this.hasQAResult;
+  }
+
   getAnswer(): void {
     this.streamText = "";
     this.isPristine = false;
     this.hasError = false;
+    this.hasQAResult = false;
 
     if (this.selectedMode == LLM_MODES.rawLLM) {
       this.getStream(this.promptText);
@@ -59,12 +66,18 @@ export class AppComponent {
       request.pipe(
         map((data) => {
           this.isFetchingDocs = false;
+          if (data.context && data.context.doc_count > 0) {
+            this.sourceDocs = data.context.documents.map((doc: any) => doc.metadata);
+          }
           return data.prompt;
         })).subscribe({
           next: (prepared_prompt: string) => {
-            // this.getStream(prepared_prompt);
-            this.streamText = this.utils.processStreamData(prepared_prompt);
-
+            this.getStream(prepared_prompt);
+            /**
+             * This is a debug code line
+             * Uncomment it to check the output of the DB Server
+             */
+            // this.streamText = this.utils.processStreamData(prepared_prompt);
           }, error: (err) => {
             console.error("Error from DB call", err);
             this.isFetchingDocs = false;
@@ -76,6 +89,7 @@ export class AppComponent {
   }
 
   private getQAResponse(): Observable<any> {
+    this.hasQAResult = true;
     return this.db.getQAPrompt(this.promptText);
   }
 
